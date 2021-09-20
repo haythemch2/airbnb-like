@@ -195,17 +195,29 @@ router.put("/reserve/:id", auth, async (req, res) => {
       endDate: req.body.endDate,
       reservedBy: req.user.user_id,
     };
-    const post = await Post.findOneAndUpdate(
+    const post = await Post.findByIdAndUpdate(
       { _id: req.params.id },
       { $push: { reservations: newReservation } }
     );
-    // .populate("feedback.user", "_id first_name last_name avatar")
-    // .populate("by", "_id first_name avatar");
-
-    res.status(200).json(post.feedback);
+    console.log(newReservation);
+    res.status(200).json(post);
   } catch (error) {
-    res.status(500).send("Server Error");
+    res.status(500).send(error);
   }
+});
+
+// get reservations by user
+// get
+// http://localhost:5000/myreservations
+router.get("/myreservations", auth, (req, res) => {
+  Post.find({ "reservations.reservedBy": req.user.user_id })
+    .then((posts) => {
+      res.json({ posts });
+      console.log(posts);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 module.exports = router;
