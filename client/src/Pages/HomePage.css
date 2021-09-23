@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --primary: #ffe3e0;
+  --secondary: #ef6351;
+}
+.HomeContainer {
+  background-color: var(--primary);
+  height: 100vh;
+}
+.HomeNavBar {
+  height: 100px;
+  padding: 1rem 0 0 2rem;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+}
